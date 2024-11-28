@@ -1,5 +1,6 @@
 import express from 'express';
-import costumers from './customerRoutes.js';
+import customers from './customerRoutes.js';
+import users from './userRoutes.js';
 /*
 Definição das Rotas Principais da Aplicação
 Este módulo funciona como um "barrel", centralizando e configurando as rotas principais da aplicação.
@@ -14,7 +15,7 @@ const routes = (app) => {
     // Define a rota base "/"
     app.route("/").get((req, res) => res.status(200).send("API Running"));
     // Registra o middleware para interpretar JSON e as rotas de clientes
-    app.use(express.json(), costumers);
+    app.use(express.json(), customers, users);
 };
 
 
