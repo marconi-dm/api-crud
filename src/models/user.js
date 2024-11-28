@@ -3,15 +3,11 @@ const {Schema} = mongoose;
 
 
 const userSchema = new Schema({
-    nome:{type: String, required: true},
-    email:{type: String, required: true, unique: true},
-    senha:{type: String, required: true}
-},    {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
-});
+    nome:{type: String, required: true, minlength: 3},
+    email:{type: String, required: true, unique: true, trim: true},
+    senha:{type: String, required: true, minlength: 6}
+    
+},{ timestamps: true});
 
 
 const Users = mongoose.model('usuarios', userSchema);
