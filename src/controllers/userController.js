@@ -59,12 +59,19 @@ class userController{
                     return res.status(422).json({message: `O campo ${key} é obrigatório`})
                 }
             };
-
+            //validando usuário
             const user = await Users.findOne({email})
-
             if (!user) {
-                return res.status(422).json({message:"Usuário não encontrado"})
+                return res.status(404).json({message: "Usuário não encontrado"})
             }
+
+            //validando senha
+            const checkPassword = await bcrypt.compare(senha, user.senha)
+            if (!checkPassword) {
+                return res.status(422).json({message: "senha inválida"})
+            }
+
+
 
         } catch (error) {
             
