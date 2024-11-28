@@ -46,6 +46,29 @@ class userController{
             
         }
 
+    };
+
+
+    static async login(req, res){
+        try {
+            const { email, senha} = req.body
+
+            const requiredValues = {email, senha}
+            for (const [key, value] of Object.entries(requiredValues)){
+                if (!value) {
+                    return res.status(422).json({message: `O campo ${key} é obrigatório`})
+                }
+            };
+
+            const user = await Users.findOne({email})
+
+            if (!user) {
+                return res.status(422).json({message:"Usuário não encontrado"})
+            }
+
+        } catch (error) {
+            
+        }
     }
 
 

@@ -6,7 +6,7 @@ const routes = express.Router();
 
 
 routes.post("/auth/register", userController.register);
-
+routes.post("/auth/login", userController.login);
 
 
 
