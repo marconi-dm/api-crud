@@ -1,5 +1,6 @@
 import Users from '../models/user.js';
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 
 class userController{
@@ -71,11 +72,28 @@ class userController{
                 return res.status(422).json({message: "senha inválida"})
             }
 
+            const secret = process.env.JWT_SECRET
+            const token = jwt.sign({
+                id: user._id,
+            }, secret)
 
+            res.status(200).json({message: `Autenticação realizado com sucesso!`, token})
 
         } catch (error) {
             
         }
+    };
+
+
+    static async profile(req, res){
+        try {
+            const user = req.user;
+            res.status(200).json({message: "Perfil do usuário", user});
+        } catch (error) {
+            console.error('Erro ao buscas perfil', error.message);
+            res.status(500).json({message: "Erro no servidor!"})
+        }
+        
     }
 
 
